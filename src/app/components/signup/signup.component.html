@@ -1,0 +1,35 @@
+<div class="auth-container">
+  <h2>Create Account</h2>
+  <form (ngSubmit)="onSignup()">
+    <div class="form-group">
+      <input 
+        type="text" 
+        [(ngModel)]="user.name" 
+        name="name" 
+        placeholder="Enter your username"
+        required
+        autocomplete="off">
+    </div>
+    <div class="form-group">
+      <input 
+        type="password" 
+        [(ngModel)]="user.password" 
+        name="password" 
+        placeholder="Create password"
+        required>
+    </div>
+    <div class="form-group">
+      <input 
+        type="password" 
+        [(ngModel)]="user.confirmPassword" 
+        name="confirmPassword" 
+        placeholder="Confirm password"
+        required>
+    </div>
+    <div class="error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <a routerLink="/login">Login here</a></p>
+  </form>
+</div>

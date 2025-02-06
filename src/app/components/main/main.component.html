@@ -1,0 +1,25 @@
+<div class="main-container">
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li>
+        <a routerLink="/data-binding" routerLinkActive="active">Data Binding</a>
+      </li>
+      <li>
+        <a routerLink="/directive" routerLinkActive="active">Directives</a>
+      </li>
+      <li>
+        <a routerLink="/address" routerLinkActive="active">Address</a>
+      </li>
+      <li>
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
+    </ul>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </nav>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="user-details-container">
+  <div *ngIf="loading" class="loading">Loading...</div>
+  
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="userDetails && !loading" class="user-card">
+    <img [src]="userDetails.data.avatar" [alt]="userDetails.data.first_name">
+    <div class="user-info">
+      <h2>{{ userDetails.data.first_name }} {{ userDetails.data.last_name }}</h2>
+      <p class="email">{{ userDetails.data.email }}</p>
+      <p class="id">User ID: {{ userDetails.data.id }}</p>
+    </div>
+  </div>
+</div>

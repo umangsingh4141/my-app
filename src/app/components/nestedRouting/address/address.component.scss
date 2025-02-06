@@ -1,11 +1,7 @@
-.active {
-  color: #ff4081;  // Pink color, you can change this to any color you prefer
-  font-weight: bold;
-}
-
-nav {
-  background-color: #000;
+.sub-nav {
+  background-color: #f5f5f5;
   padding: 1rem;
+  margin-top: 1rem;
   
   ul {
     list-style: none;
@@ -16,21 +12,29 @@ nav {
     
     li {
       a {
-        color: white;
         text-decoration: none;
-        font-size: 1.2rem;
+        color: black;
         padding: 0.5rem 1rem;
         
         &.active {
           background-color: #00ff00;
-          color: black;
           border-radius: 4px;
-        }
-        
-        &:hover {
-          color: #ff4081;  // Same as active color
         }
       }
     }
   }
+}
+
+.primary-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #333;
+    }
 }
