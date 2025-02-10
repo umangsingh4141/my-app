@@ -2,26 +2,34 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
+export interface User {
+  name: string;
+  password: string;
+  role: 'admin' | 'user' | 'guest';
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isAuthenticated = new BehaviorSubject<boolean>(false);
-  private users: any[] = [];
+  private currentUser = new BehaviorSubject<User | null>(null);
+  private users: User[] = [];
 
   constructor(private router: Router) {
-    // Check localStorage for existing users and auth state
     const savedUsers = localStorage.getItem('users');
     if (savedUsers) {
       this.users = JSON.parse(savedUsers);
     }
     
-    // Check if user was previously logged in
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    this.isAuthenticated.next(isLoggedIn);
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      this.currentUser.next(JSON.parse(savedUser));
+      this.isAuthenticated.next(true);
+    }
   }
 
-  signup(user: {name: string, password: string}) {
+  signup(user: User): boolean {
     this.users.push(user);
     localStorage.setItem('users', JSON.stringify(this.users));
     return true;
@@ -30,8 +38,9 @@ export class AuthService {
   login(name: string, password: string): boolean {
     const user = this.users.find(u => u.name === name && u.password === password);
     if (user) {
+      this.currentUser.next(user);
       this.isAuthenticated.next(true);
-      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('currentUser', JSON.stringify(user));
       return true;
     }
     return false;
@@ -39,15 +48,23 @@ export class AuthService {
 
   logout() {
     this.isAuthenticated.next(false);
-    localStorage.removeItem('isLoggedIn');
+    this.currentUser.next(null);
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
+  }
+
+  getCurrentUser(): Observable<User | null> {
+    return this.currentUser.asObservable();
+  }
+
+  getUserRole(): string | null {
+    return this.currentUser.value?.role || null;
   }
 
   isLoggedIn(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
   }
 
-  // Helper method to check current auth state
   getAuthStatus(): boolean {
     return this.isAuthenticated.value;
   }

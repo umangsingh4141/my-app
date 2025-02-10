@@ -16,23 +16,45 @@ table, th, td {
   <table *ngIf="!loading && !error">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Avatar</th>
+        <th>S.No</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
+        <th>Week Day</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.id}}</td>
-        <td><img [src]="user.avatar" [alt]="user.first_name" class="avatar"></td>
-        <td>{{user.first_name}}</td>
-        <td>{{user.last_name}}</td>
-        <td>{{user.email}}</td>
-        <td><button (click)="showDetails(user.id)">Details</button></td>
-      </tr>
+      @for (user of users; track user.id; let i = $index) {
+        <!-- Using ngClass -->
+        <!-- <tr [ngClass]="i % 2 === 0 ? 'even-row' : 'odd-row'"> -->
+        
+        <!-- Using ngStyle -->
+        <tr [ngStyle]="{'background-color': i % 2 === 0 ? '#ffebee' : '#90EE90'}">
+          <td class="index-column">{{ i + 1 }}</td>
+          <!-- Using ternary operator -->
+          <!-- <td>{{ i % 2 === 0 ? 'Mrs.' : 'Mr.' }} {{user.first_name}}</td> -->
+          
+          <!-- Using @if in one line -->
+          <!-- <td>@if (i % 2 === 0) {Mrs.} @else {Mr.} {{user.first_name}}</td> -->
+          
+          <td>@if (i % 2 === 0) {Mrs.} @else {Mr.} {{user.first_name}}</td>
+          <td>{{user.last_name}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            @switch (weekDays[i].dayNumber) {
+              @case (1) { {{weekDays[0].dayName}} }
+              @case (2) { {{weekDays[1].dayName}} }
+              @case (3) { {{weekDays[2].dayName}} }
+              @case (4) { {{weekDays[3].dayName}} }
+              @case (5) { {{weekDays[4].dayName}} }
+              @case (6) { {{weekDays[5].dayName}} }
+              @default { Invalid Day }
+            }
+          </td>
+          <td><button (click)="showDetails(user.id)">Details</button></td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

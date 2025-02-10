@@ -4,22 +4,43 @@
       <li>
         <a routerLink="/home" routerLinkActive="active">Home</a>
       </li>
-      <li>
-        <a routerLink="/data-binding" routerLinkActive="active">Data Binding</a>
+
+      <!-- Common Features -->
+      <li *ngIf="canAccess(['admin', 'user'])">
+        <a routerLink="/cart" routerLinkActive="active">Cart</a>
       </li>
-      <li>
-        <a routerLink="/directive" routerLinkActive="active">Directives</a>
-      </li>
-      <li>
-        <a routerLink="/address" routerLinkActive="active">Address</a>
-      </li>
-      <li>
+      <li *ngIf="canAccess(['admin', 'user'])">
         <a routerLink="/users" routerLinkActive="active">Users</a>
       </li>
+
+      <!-- Admin Features -->
+      <li *ngIf="canAccess(['admin'])">
+        <a routerLink="/admin/forms" routerLinkActive="active">Forms</a>
+      </li>
+      <li *ngIf="canAccess(['admin'])">
+        <a routerLink="/admin/address" routerLinkActive="active">Address</a>
+      </li>
+      <li *ngIf="canAccess(['admin'])">
+        <a routerLink="/admin/directives" routerLinkActive="active">Directives</a>
+      </li>
+      <li *ngIf="canAccess(['admin'])">
+        <a routerLink="/admin/data-binding" routerLinkActive="active">Data Binding</a>
+      </li>
+      <li *ngIf="canAccess(['admin'])">
+        <a routerLink="/crud" routerLinkActive="active">Employee CRUD</a>
+      </li>
     </ul>
-    <button class="logout-btn" (click)="logout()">Logout</button>
+    
+    <div class="nav-actions">
+      <button class="cart-btn" (click)="toggleCart()">
+        Cart ({{ cartItemCount }})
+      </button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
   </nav>
+  
   <div class="content">
     <router-outlet></router-outlet>
   </div>
+  <app-cart-summary></app-cart-summary>
 </div>

@@ -1,0 +1,46 @@
+<div class="cart-container">
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchText" 
+        (ngModelChange)="filterProducts()"
+        placeholder="Search products...">
+    </div>
+
+    <div class="filter-options">
+      <select [(ngModel)]="selectedColor" (ngModelChange)="filterProducts()">
+        <option value="">All Colors</option>
+        @for (color of colors; track color) {
+          <option [value]="color">{{color | titlecase}}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="selectedCategory" (ngModelChange)="filterProducts()">
+        <option value="">All Categories</option>
+        @for (category of categories; track category) {
+          <option [value]="category">{{category | titlecase}}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="products-grid">
+    @for (product of filteredProducts; track product.id) {
+      <div class="product-card">
+        <img [src]="product.image" [alt]="product.name">
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="price">₹{{ product.price }}</p>
+          <p class="color">Color: {{ product.color }}</p>
+          <p class="description">{{ product.description }}</p>
+          <button 
+            [class.in-cart]="isInCart(product.id)"
+            (click)="isInCart(product.id) ? removeFromCart(product.id) : addToCart(product)">
+            {{ isInCart(product.id) ? 'Remove from Cart' : 'Add to Cart' }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

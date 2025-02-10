@@ -1,0 +1,27 @@
+<div class="cart-summary" *ngIf="cartVisible$ | async">
+  <div class="cart-header">
+    <h3>Shopping Cart ({{(cartItems$ | async)?.length || 0}})</h3>
+    <button class="close-btn" (click)="closeCart()">×</button>
+  </div>
+  
+  <div class="cart-items">
+    @for (item of cartItems$ | async; track item.id) {
+      <div class="cart-item">
+        <img [src]="item.image" [alt]="item.name">
+        <div class="item-details">
+          <h4>{{ item.name }}</h4>
+          <p>₹{{ item.price }}</p>
+        </div>
+        <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+      </div>
+    }
+  </div>
+  
+  <div class="cart-footer">
+    <div class="total">
+      <span>Total:</span>
+      <span>₹{{ cartTotal }}</span>
+    </div>
+    <button class="checkout-btn">Checkout</button>
+  </div>
+</div>

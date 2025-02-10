@@ -11,8 +11,6 @@ import { HomeComponent } from './components/home/home.component';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterLinkActive,
-    RouterLink,
     CommonModule, 
     FormsModule, 
     RouterOutlet, 

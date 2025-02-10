@@ -14,43 +14,66 @@ import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
-
-const authGuard = () => {
-  const authService = inject(AuthService);
-  const router = inject(Router);
-  
-  if (!authService.getAuthStatus()) {
-    router.navigate(['/login']);
-    return false;
-  }
-  return true;
-};
+import { LazyComponent } from './components/lazy/lazy.component';
+import { adminAuthGuard, AdminChildAuthGuard } from './guards/admin-auth.guard';
+import { FormsComponent } from './components/forms/forms.component';
+import { TempelateBasedComponent } from './components/forms/tempelate-based/tempelate-based.component';
+import { ReactiveBasedComponent } from './components/forms/reactive-based/reactive-based.component';
+import { roleGuard } from './guards/role.guard';
+import { CartingComponent } from './cart/components/carting/carting.component';
+import { authGuard } from './guards/auth.guard';
+import { CrudTableComponent } from './components/crud-table/crud-table.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/signup', pathMatch: 'full' },
-    { path: 'signup', component: SignupComponent },
-    { path: 'login', component: LoginComponent },
-    {
-        path: '',
-        component: MainComponent,
-        canActivate: [authGuard],
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  {
+    path: '',
+    component: MainComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { 
+        path: 'cart', 
+        component: CartingComponent,
+        canActivate: [authGuard, roleGuard(['admin', 'user'])]
+      },
+      { 
+        path: 'users', 
+        component: UsersComponent,
+        canActivate: [authGuard, roleGuard(['admin', 'user'])]
+      },
+      { 
+        path: 'crud', 
+        component: CrudTableComponent,
+        canActivate: [authGuard, roleGuard(['admin'])]
+      },
+      
+      // Admin Routes
+      {
+        path: 'admin',
+        canActivate: [authGuard, roleGuard(['admin'])],
         children: [
-            { path: 'home', component: HomeComponent },
-            { path: 'data-binding', component: DataBindingComponent },
-            { path: 'directive', component: DirectivesComponent },
-            { path: 'users', component: UsersComponent },
-            { path: 'users/:id', component: UsersDetailsComponent },
-            { 
-                path: 'address', 
-                component: AddressComponent,
-                children: [
-                    { path: 'primary', component: PrimaryAddressComponent },
-                    { path: 'secondary', component: SecondaryAddressComponent },
-                    { path: '', redirectTo: 'primary', pathMatch: 'full' }
-                ] 
-            }
+          {
+            path: 'forms',
+            component: FormsComponent,
+            children: [
+              { path: 'template', component: TempelateBasedComponent },
+              { path: 'reactive', component: ReactiveBasedComponent }
+            ]
+          },
+          {
+            path: 'address',
+            component: AddressComponent,
+            children: [
+              { path: 'primary', component: PrimaryAddressComponent },
+              { path: 'secondary', component: SecondaryAddressComponent }
+            ]
+          },
+          { path: 'directives', component: DirectivesComponent },
+          { path: 'data-binding', component: DataBindingComponent }
         ]
-    },
-    // Catch all route - redirect to login
-    { path: '**', redirectTo: '/login' }
+      }
+    ]
+  }
 ];

@@ -38,7 +38,21 @@ table {
     }
 
     th {
-      background-color: #f4f4f4;
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    .index-column {
+      width: 50px;
+      text-align: center;
+    }
+
+    .even-row {
+      background-color:#ffebee; // Light red for even rows
+    }
+
+    .odd-row {
+      background-color: #90EE90; // Light green for odd rows
     }
 
     .avatar {
@@ -49,14 +63,14 @@ table {
 
     button {
       padding: 8px 16px;
-      background-color: #000;
+      background-color: #1a73e8;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
 
       &:hover {
-        background-color: #333;
+        background-color: #1557b0;
       }
     }
   }

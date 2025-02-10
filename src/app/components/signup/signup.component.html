@@ -26,6 +26,13 @@
         placeholder="Confirm password"
         required>
     </div>
+    <div class="form-group">
+      <select [(ngModel)]="user.role" name="role" required>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+        <option value="guest">Guest</option>
+      </select>
+    </div>
     <div class="error" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>

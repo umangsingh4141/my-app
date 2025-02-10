@@ -1,0 +1,32 @@
+.forms-container {
+  padding: 20px;
+
+  nav {
+    margin-bottom: 20px;
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+
+      li {
+        a {
+          text-decoration: none;
+          color: #1a73e8;
+          padding: 8px 16px;
+          border-radius: 4px;
+
+          &.active {
+            background-color: #1a73e8;
+            color: white;
+          }
+
+          &:hover {
+            background-color: #e8f0fe;
+          }
+        }
+      }
+    }
+  }
+}

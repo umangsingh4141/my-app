@@ -3,6 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService, User } from './users.service';
 
+// interface WeekDay {
+//   dayNumber: number;
+//   dayName: string;
+// }
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -14,6 +19,15 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   loading = true;
   error: string | null = null;
+  
+  weekDays = [
+    { dayNumber: 1, dayName: 'Monday' },
+    { dayNumber: 2, dayName: 'Tuesday' },
+    { dayNumber: 3, dayName: 'Wednesday' },
+    { dayNumber: 4, dayName: 'Thursday' },
+    { dayNumber: 5, dayName: 'Friday' },
+    { dayNumber: 6, dayName: 'Saturday' }
+  ];
 
   constructor(
     private router: Router,

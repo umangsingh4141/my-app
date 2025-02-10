@@ -1,0 +1,38 @@
+<div class="form-container">
+  <h2>Reactive Form</h2>
+  @if (submitted) {
+    <div class="success-message">
+      Reactive Form Submitted Successfully!
+    </div>
+  }
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name: <span class="required">*Required (min 3 characters)</span></label>
+      <input type="text" id="name" formControlName="name">
+      @if ((userForm.get('name')?.touched || showValidation) && userForm.get('name')?.errors?.['required']) {
+        <span class="error">Name is required</span>
+      }
+      @if ((userForm.get('name')?.touched || showValidation) && userForm.get('name')?.errors?.['minlength']) {
+        <span class="error">Name must be at least 3 characters</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email">
+      @if ((userForm.get('email')?.touched || showValidation) && userForm.get('email')?.invalid) {
+        <span class="error">Please enter a valid email</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" formControlName="phone">
+      @if ((userForm.get('phone')?.touched || showValidation) && userForm.get('phone')?.invalid) {
+        <span class="error">Phone number is required</span>
+      }
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
