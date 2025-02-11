@@ -13,9 +13,7 @@ import { HomeComponent } from './components/home/home.component';
   imports: [
     CommonModule, 
     FormsModule, 
-    RouterOutlet, 
-    RouterLink, 
-    RouterLinkActive,
+    RouterOutlet,  
     EmulatedComponent,
     ShadowComponent,
     NoneComponent,

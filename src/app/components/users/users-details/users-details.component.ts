@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-users-details',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './users-details.component.html',
   styleUrl: './users-details.component.scss'
