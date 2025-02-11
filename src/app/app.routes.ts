@@ -23,6 +23,7 @@ import { roleGuard } from './guards/role.guard';
 import { CartingComponent } from './cart/components/carting/carting.component';
 import { authGuard } from './guards/auth.guard';
 import { CrudTableComponent } from './components/crud-table/crud-table.component';
+import { HomeComponent as LifecycleHomeComponent } from './lifecycle/home/home.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +33,11 @@ export const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
+      { 
+        path: 'lifecycle', 
+        component: LifecycleHomeComponent,
+        canActivate: [authGuard, roleGuard(['admin', 'user'])]
+      },
       { path: 'home', component: HomeComponent },
       { 
         path: 'cart', 
@@ -41,7 +47,10 @@ export const routes: Routes = [
       { 
         path: 'users', 
         component: UsersComponent,
-        canActivate: [authGuard, roleGuard(['admin', 'user'])]
+        canActivate: [authGuard, roleGuard(['admin', 'user'])],
+        children: [
+          { path: ':id', component: UsersDetailsComponent }
+        ]
       },
       { 
         path: 'crud', 

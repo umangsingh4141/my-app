@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UsersService, User } from './users.service';
 
 // interface WeekDay {
@@ -11,7 +11,7 @@ import { UsersService, User } from './users.service';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private usersService: UsersService
   ) {}
 
@@ -52,6 +53,6 @@ export class UsersComponent implements OnInit {
   }
 
   showDetails(id: number) {
-    this.router.navigate(['/users', id]);
+    this.router.navigate([id], { relativeTo: this.route });
   }
 }

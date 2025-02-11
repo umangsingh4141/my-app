@@ -14,6 +14,7 @@ export interface UserResponse {
     url: string;
     text: string;
   };
+  place?: string;  // Add this line
 }
 
 @Injectable({

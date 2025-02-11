@@ -1,0 +1,13 @@
+<div class="home-container">
+  <h1>Home Component</h1>
+  
+  <div class="actions">
+    <button (click)="updateTitle()">Update Title</button>
+    <button (click)="updateUser()">Update User</button>
+  </div>
+
+  <app-child 
+    [title]="pageTitle"
+    [user]="currentUser">
+  </app-child>
+</div>

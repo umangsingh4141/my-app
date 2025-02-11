@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserDetailsService, UserResponse } from '../user-details/user-details.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-users-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './users-details.component.html',
   styleUrl: './users-details.component.scss'
 })
@@ -32,6 +33,7 @@ export class UsersDetailsComponent implements OnInit {
     this.userService.getUserById(id).subscribe({
       next: (response) => {
         this.userDetails = response;
+        console.log('Place:', response); // Should show 'london'
         this.loading = false;
       },
       error: (error) => {
