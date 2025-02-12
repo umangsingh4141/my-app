@@ -1,34 +1,111 @@
 .crud-container {
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+
+  h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+  }
 
   .add-form {
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+
+    h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+    }
 
     .form-group {
-      display: flex;
-      gap: 10px;
-      
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      align-items: end;
+
       input, select {
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e2e8f0;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--secondary-color);
+          box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
       }
 
       button {
-        padding: 8px 16px;
-        background-color: #4CAF50;
+        background: var(--success-color);
         color: white;
+        padding: 0.75rem 1.5rem;
         border: none;
-        border-radius: 4px;
+        border-radius: var(--border-radius);
         cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
 
         &:hover {
-          background-color: #45a049;
+          background: darken(#27ae60, 10%);
+          transform: translateY(-2px);
         }
       }
+    }
+  }
+
+  .table-container {
+    background: var(--bg-secondary);
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &.edit-btn {
+          background: var(--warning-color);
+          color: white;
+
+          &:hover {
+            background: darken(#f39c12, 10%);
+          }
+        }
+
+        &.delete-btn {
+          background: var(--danger-color);
+          color: white;
+
+          &:hover {
+            background: darken(#e74c3c, 10%);
+          }
+        }
+      }
+    }
+
+    th {
+      background-color: var(--bg-primary);
+      color: var(--primary-color);
+    }
+
+    tr:hover {
+      background-color: var(--bg-primary);
     }
   }
 

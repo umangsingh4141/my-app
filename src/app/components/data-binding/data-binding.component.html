@@ -1,1 +1,18 @@
-<p>data-binding works!</p>
+<div class="data-binding-container">
+  <div class="numbers-section">
+    <h3>Original Numbers</h3>
+    <div class="numbers-list">
+      @for (number of originalNumbers; track number) {
+        <div class="number-item">{{ number }}</div>
+      }
+    </div>
+  </div>
+
+  <div class="numbers-section">
+    <h3>Multiplied Numbers (×10)</h3>
+    <div class="numbers-list">
+      @for (number of multipliedNumbers; track number) {
+        <div class="number-item">{{ number }}</div>
+      }
+    </div>
+</div>

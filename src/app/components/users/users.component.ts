@@ -1,21 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { UsersService, User } from './users.service';
-
-// interface WeekDay {
-//   dayNumber: number;
-//   dayName: string;
-// }
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-users',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = [];
+  users: any[] = [];
   loading = true;
   error: string | null = null;
   
@@ -29,16 +25,12 @@ export class UsersComponent implements OnInit {
   ];
 
   constructor(
+    private usersService: UsersService,
     private router: Router,
-    private route: ActivatedRoute,
-    private usersService: UsersService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.loadUsers();
-  }
-
-  loadUsers() {
     this.usersService.getUsers().subscribe({
       next: (response) => {
         this.users = response.data;
